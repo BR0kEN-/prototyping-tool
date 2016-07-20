@@ -1,0 +1,23 @@
+.*
+
+# Git stuff.
+!.git*
+
+# Configurations.
+!.babelrc
+!.eslintrc
+!.router.php
+!.scss-lint.yml
+
+# Custom plugins.
+!.gulp/
+
+# Vendor plugins.
+node_modules/
+
+# Ignore any files and folders in project root.
+dist/**
+# Wait, except of folders.
+!dist/**/
+# Hm, except of ".php" files on any nesting level.
+!dist/**/*.php
