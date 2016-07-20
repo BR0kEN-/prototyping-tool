@@ -7,7 +7,6 @@ import TypedPlugin from './types/TypedPlugin';
  * @property {String} port
  * @property {String} router
  * @property {String} hostname
- * @property {Boolean} keepalive
  */
 export default class PhpWebServer extends TypedPlugin {
   /**
@@ -28,7 +27,6 @@ export default class PhpWebServer extends TypedPlugin {
       port: port || '80',
       router: router,
       hostname: hostname || '127.0.0.1',
-      keepalive: true
     });
   }
 }

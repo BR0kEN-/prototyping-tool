@@ -8,6 +8,7 @@
 ## Features
 
 - All source files (JS/CSS), names of which starts from `_`, will not be copied into the destination.
+- Live reload: track changes in CSS, JS and PHP files.
 - SCSS compiling (using [gulp-sass](https://github.com/dlmanning/gulp-sass)).
 - SCSS linting (using [gulp-scss-lint](https://github.com/juanfran/gulp-scss-lint)).
 - JS requires (using [gulp-include](https://github.com/wiledal/gulp-include)).
