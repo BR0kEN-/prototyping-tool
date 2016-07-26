@@ -19,5 +19,7 @@ node_modules/
 dist/**
 # Wait, except of folders.
 !dist/**/
+!dist/**/fonts/*
+!dist/**/images/*
 # Hm, except of ".php" files on any nesting level.
 !dist/**/*.php
