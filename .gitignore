@@ -5,6 +5,7 @@
 
 # Configurations.
 !.babelrc
+!.bowerrc
 !.eslintrc
 !.router.php
 !.scss-lint.yml
@@ -14,7 +15,6 @@
 
 # Vendor plugins.
 node_modules/
-bower_components/
 
 # Ignore any files and folders in project root.
 dist/**
