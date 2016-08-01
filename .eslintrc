@@ -4,6 +4,7 @@
     "browser": true
   },
   "globals": {
+    "$": true,
     "jQuery": true,
     "Backbone": true,
     "CKEDITOR": true
@@ -55,8 +56,7 @@
     "no-shadow-restricted-names": 2,
     "no-spaced-func": 2,
     "no-trailing-spaces": 2,
-    "no-undef-init": 2,
-    "no-undefined": 2,
+    "no-undef": 0,
     "no-unused-expressions": 2,
     "no-unused-vars": [2, {"vars": "all", "args": "none"}],
     "no-with": 2,
@@ -72,7 +72,7 @@
     "space-infix-ops": 2,
     "space-unary-ops": [2, { "words": true, "nonwords": false }],
     "spaced-comment": [2, "always"],
-    "strict": [2, "global"],
+    "strict": [0, "global"],
     "yoda": [2, "never"],
     // Warnings.
     "max-nested-callbacks": [1, 3],
