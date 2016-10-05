@@ -29,6 +29,8 @@ const taskNames = Object.keys(assets).map(taskName => {
       .src(asset.src)
       // Process sources.
       .pipe(asset.Invoke())
+      // Do not stop watching on SCSS/JS compilation errors.
+      .on('error', (error) => console.warn(error.message))
       // Allow copy files into destination only if their names starts from "_".
       .pipe(filter.Invoke())
       // Copy processed sources into destination.
