@@ -8,7 +8,9 @@
 !.bowerrc
 !.eslintrc
 !.router.php
+!.js-config.yml
 !.scss-lint.yml
+!.scss-config.yml
 
 # Custom plugins.
 !.gulp/

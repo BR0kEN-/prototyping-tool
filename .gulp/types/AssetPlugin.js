@@ -1,6 +1,8 @@
 'use strict';
 
 import TypedPlugin from './TypedPlugin';
+import yaml from 'js-yaml';
+import fs from 'fs';
 
 export default class AssetPlugin extends TypedPlugin {
   /**
@@ -17,6 +19,11 @@ export default class AssetPlugin extends TypedPlugin {
    */
   constructor(assetModule, lintModule, src, dest) {
     super(assetModule);
+    const configFilename = './.' + this.__proto__.constructor.name.toLowerCase() + '-config.yml';
+
+    if (fs.existsSync(configFilename)) {
+      this.options = yaml.safeLoad(fs.readFileSync(configFilename, 'utf-8'));
+    }
 
     this.src = src;
     this.dest = dest;

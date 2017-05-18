@@ -38,9 +38,9 @@ export default class TypedPlugin {
    * @param {Object} [options]
    *   A set of options for module invocation.
    */
-  constructor(module, method, options) {
+  constructor(module, method, options = {}) {
     this.module = module ? require(module) : {};
-    this.options = options || {};
+    this.options = options;
 
     if (method in this.module) {
       this.module[method](this.options);
