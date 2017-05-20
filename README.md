@@ -35,6 +35,5 @@
 - PHP
 - Ruby
 - SASS
-- Compass
 - NodeJS
 - NPM
