@@ -1,0 +1,147 @@
+/* eslint no-console: ["error", {allow: ["log"]}] */
+import path from 'path';
+import webpack from 'webpack';
+import autoprefixer from 'autoprefixer';
+import WriteFilePlugin from 'write-file-webpack-plugin';
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import BrowserSyncPlugin from 'browser-sync-webpack-plugin';
+import PhpDevelopmentServerConnection from 'gulp-connect-php';
+
+/**
+ * @namespace config.devConfig
+ */
+import config from './package';
+
+/**
+ * The "host:port" of the development web-server.
+ *
+ * @type {String}
+ */
+const server = config.devConfig.server.hostname + ':' + config.devConfig.server.port;
+
+/**
+ * The environment of operation.
+ *
+ * @type {String}
+ */
+process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+
+// The "npm run build" means we're compiling the production-ready code.
+if ('build' === process.env.npm_lifecycle_event) {
+  process.env.NODE_ENV = 'production';
+}
+
+/**
+ * List of Webpack plugins.
+ *
+ * @type {Object[]}
+ */
+let plugins = [
+  // Write compiled files.
+  new WriteFilePlugin(),
+  // Compile CSS separately of JS.
+  new ExtractTextPlugin(config.devConfig.assets.style.result),
+  // Define aliases of known libraries. E.g., alias of "jQuery" could be "$".
+  new webpack.ProvidePlugin(config.devConfig.provides),
+  // Process source code.
+  new webpack.LoaderOptionsPlugin({
+    debug: false,
+    // Set to "false" to see a list of every file being bundled.
+    noInfo: true,
+    minimize: true,
+    options: {
+      context: '/',
+      postcss: () => [autoprefixer],
+      sassLoader: {
+        // Incite the Autoprefixer for SCSS.
+        includePaths: [path.resolve(__dirname, path.dirname(config.devConfig.assets.style.source))],
+      },
+    },
+  }),
+];
+
+switch (process.env.NODE_ENV) {
+  // Handle "npm run build" - the command for compiling the production-ready code.
+  case 'production':
+    plugins.push(new webpack.optimize.UglifyJsPlugin({
+      sourceMap: true,
+    }));
+    break;
+
+  // Handle "npm start" and start BrowserSync-empowered PHP web-server.
+  case 'development':
+    plugins.push(new BrowserSyncPlugin({
+      proxy: 'http://' + server,
+      files: config.devConfig.server.files,
+    }));
+
+    new PhpDevelopmentServerConnection(config.devConfig.server).server();
+    break;
+
+  default:
+    throw new Error(`The "${process.env.NODE_ENV}" environment is unknown!`);
+}
+
+export default {
+  plugins,
+  target: 'web',
+  // https://webpack.js.org/guides/development/#using-source-maps
+  // https://webpack.js.org/configuration/devtool/
+  devtool: 'source-map',
+  externals: config.devConfig.externals,
+  devServer: {
+    // Proxy SCSS/JS local changes to the PHP web-server.
+    proxy: {
+      '/': server,
+    }
+  },
+  resolve: {
+    extensions: ['*', '.js', '.json'],
+  },
+  entry: {
+    [config.devConfig.assets.style.result]: config.devConfig.assets.style.source,
+    [config.devConfig.assets.script.result]: config.devConfig.assets.script.source,
+  },
+  output: {
+    path: __dirname,
+    filename: '[name]',
+    publicPath: '/',
+  },
+  module: {
+    rules: [
+      {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader',
+      },
+      {
+        test: /\.eot(\?v=\d+.\d+.\d+)?$/,
+        loader: 'url-loader?name=[name].[ext]',
+      },
+      {
+        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: 'url-loader?limit=10000&mimetype=application/font-woff&name=[name].[ext]',
+      },
+      {
+        test: /\.[ot]tf(\?v=\d+.\d+.\d+)?$/,
+        loader: 'url-loader?limit=10000&mimetype=application/octet-stream&name=[name].[ext]',
+      },
+      {
+        test: /\.svg(\?v=\d+.\d+.\d+)?$/,
+        loader: 'url-loader?limit=10000&mimetype=image/svg+xml&name=[name].[ext]',
+      },
+      {
+        test: /\.(jpe?g|png|gif)$/i,
+        loader: 'file-loader?name=[name].[ext]',
+      },
+      {
+        test: /\.ico$/,
+        loader: 'file-loader?name=[name].[ext]',
+      },
+      {
+        test: /(\.css|\.scss|\.sass)$/,
+        loader: ExtractTextPlugin.extract('css-loader?sourceMap!postcss-loader!sass-loader?sourceMap'),
+      },
+    ],
+  },
+};

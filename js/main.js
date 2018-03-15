@@ -1,8 +1,9 @@
 'use strict';
 
-// =require components/*.js
-var example = new Example('BR0kEN');
+/* eslint-disable import/default */
+/* eslint import/namespace: ['error', {allowComputed: true}] */
+import 'babel-polyfill';
 
 console.log(
-  example.name
+  1213
 );
