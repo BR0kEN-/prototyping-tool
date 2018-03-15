@@ -8,7 +8,7 @@ npm install
 
 ## Features
 
-- ES6 syntax today: let [Webpack](https://github.com/webpack/webpack) do a dirty work.
+- ES6 syntax today: let [Webpack](https://github.com/webpack/webpack) do a dirty job.
 - Live reload: track changes in SCSS, JS and PHP files.
 - [PostCSS](https://github.com/postcss/postcss) and [Autoprefixer](https://github.com/postcss/autoprefixer): write only clean CSS.
 - Quality: SCSS & JavaScript code sniffers ([ESLint](https://github.com/eslint/eslint) and [StyleLint](https://github.com/stylelint/stylelint)).
@@ -18,12 +18,11 @@ npm install
 
 - `npm start` - starts a built-in PHP web-server that tracks changes of all sources.
 - `npm run build` - compiles the code in production-ready mode.
-- `lints` - executes all linters.
 
 ## Requirements
 
-- PHP
-- NPM
+- PHP >= 5.4
+- NPM >= 4
 - Node.js
 
 ## Notes
