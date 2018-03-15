@@ -1,4 +1,3 @@
-/* eslint no-console: ["error", {allow: ["log"]}] */
 import path from 'path';
 import webpack from 'webpack';
 import autoprefixer from 'autoprefixer';
