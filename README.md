@@ -4,7 +4,6 @@
 
 ```bash
 npm install
-gem install scss_lint
 ```
 
 ## Features
