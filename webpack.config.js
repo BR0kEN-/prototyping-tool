@@ -1,3 +1,4 @@
+import config from './config';
 import path from 'path';
 import webpack from 'webpack';
 import autoprefixer from 'autoprefixer';
@@ -8,16 +9,11 @@ import BrowserSyncPlugin from 'browser-sync-webpack-plugin';
 import PhpDevelopmentServerConnection from 'gulp-connect-php';
 
 /**
- * @namespace config.devConfig
- */
-import config from './package';
-
-/**
  * The "host:port" of the development web-server.
  *
  * @type {String}
  */
-const server = config.devConfig.server.hostname + ':' + config.devConfig.server.port;
+const server = config.server.hostname + ':' + config.server.port;
 
 /**
  * The environment of operation.
@@ -40,9 +36,9 @@ let plugins = [
   // Write compiled files.
   new WriteFilePlugin(),
   // Compile CSS separately of JS.
-  new ExtractTextPlugin(config.devConfig.assets.style.result),
+  new ExtractTextPlugin(config.assets.style.result),
   // Define aliases of known libraries. E.g., alias of "jQuery" could be "$".
-  new webpack.ProvidePlugin(config.devConfig.provides),
+  new webpack.ProvidePlugin(config.provides),
   new StyleLintPlugin(),
 ];
 
@@ -58,10 +54,10 @@ switch (process.env.NODE_ENV) {
   case 'development':
     plugins.push(new BrowserSyncPlugin({
       proxy: 'http://' + server,
-      files: config.devConfig.server.files,
+      files: config.server.files,
     }));
 
-    new PhpDevelopmentServerConnection(config.devConfig.server).server();
+    new PhpDevelopmentServerConnection(config.server).server();
     break;
 
   default:
@@ -74,7 +70,7 @@ export default {
   // https://webpack.js.org/guides/development/#using-source-maps
   // https://webpack.js.org/configuration/devtool/
   devtool: 'source-map',
-  externals: config.devConfig.externals,
+  externals: config.externals,
   devServer: {
     // Proxy SCSS/JS local changes to the PHP web-server.
     proxy: {
@@ -85,8 +81,8 @@ export default {
     extensions: ['*', '.js', '.json'],
   },
   entry: {
-    [config.devConfig.assets.style.result]: config.devConfig.assets.style.source,
-    [config.devConfig.assets.script.result]: config.devConfig.assets.script.source,
+    [config.assets.style.result]: config.assets.style.source,
+    [config.assets.script.result]: config.assets.script.source,
   },
   output: {
     path: __dirname,
@@ -147,7 +143,7 @@ export default {
             {
               loader: 'sass-loader',
               options: {
-                includePaths: [path.resolve(__dirname, path.dirname(config.devConfig.assets.style.source))],
+                includePaths: [path.resolve(__dirname, path.dirname(config.assets.style.source))],
                 sourceMap: true,
               }
             },

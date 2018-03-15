@@ -1,0 +1,28 @@
+{
+  "server": {
+    "base": "./dist",
+    "port": 9011,
+    "files": [
+      "**/*.php"
+    ],
+    "router": "./.router.php",
+    "hostname": "127.0.0.1"
+  },
+  "assets": {
+    "style": {
+      "source": "./scss/main.scss",
+      "result": "./dist/css/main.css"
+    },
+    "script": {
+      "source": "./js/main.js",
+      "result": "./dist/js/main.js"
+    }
+  },
+  "externals": {
+    "Drupal": "Drupal",
+    "jQuery": "jQuery"
+  },
+  "provides": {
+    "$": "jQuery"
+  }
+}

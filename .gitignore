@@ -6,11 +6,12 @@
 # Configurations.
 !.babelrc
 !.bowerrc
+!.browserslistrc
 !.eslintrc
 !.postcssrc
-!.stylelintrc
-!.browserslistrc
 !.router.php
+!.stylelintrc
+!config.json
 # Vendor plugins.
 node_modules/
 
