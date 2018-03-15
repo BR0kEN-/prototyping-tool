@@ -1,6 +1,0 @@
-# https://github.com/sass/node-sass#outputstyle
-outputStyle: compressed
-# https://github.com/sass/node-sass#precision
-precision: 5
-# https://github.com/sass/node-sass#sourcecomments
-sourceComments: false

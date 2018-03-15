@@ -2,33 +2,22 @@
 
 ## Installation
 
-- npm install
-- gem install scss_lint
+```bash
+npm install
+gem install scss_lint
+```
 
 ## Features
 
-- All source files (JS/SCSS), names of which starts from `_`, will not be copied into the destination.
+- Quality: SCSS & JavaScript code sniffers.
+- ES6 syntax today: let Webpack do a dirty work.
 - Live reload: track changes in SCSS, JS and PHP files.
-- SCSS compiling (using [gulp-sass](https://github.com/dlmanning/gulp-sass)).
-- SCSS linting (using [gulp-scss-lint](https://github.com/juanfran/gulp-scss-lint)).
-- JS requires (using [gulp-include](https://github.com/wiledal/gulp-include)).
-- JS linting (using [gulp-eslint](https://github.com/adametry/gulp-eslint)).
 
 ## Tasks
 
-- `default` - starts a built-in PHP web-server and will track changes of all sources.
-- `compile` - run all asset-related tasks.
+- `npm start` - starts a built-in PHP web-server that tracks changes of all sources.
+- `npm run build` - compiles the code in production-ready mode.
 - `lints` - executes all linters.
-
-### JS
-
-- `js` - processing all `require` statements.
-- `js-lint` - includes execution of `js` and executes ES lint.
-
-### SCSS
-
-- `scss` - compile SCSS.
-- `scss-lint` - includes execution of `scss` and executes SCSS lint.
 
 ## Requirements
 
