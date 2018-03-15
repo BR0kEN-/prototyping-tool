@@ -7,7 +7,6 @@
 </head>
 <body role="document">
  <?php require_once 'includes/header.php'; ?>
- 12
  <script src="js/main.js"></script>
 </body>
 </html>

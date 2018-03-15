@@ -1,0 +1,15 @@
+{
+  "presets": [
+    "es2015",
+    "stage-1",
+    [
+      "env",
+      {
+        "targets": {
+          "ie": 9,
+          "uglify": true
+        }
+      }
+    ]
+  ]
+}

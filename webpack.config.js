@@ -2,6 +2,7 @@
 import path from 'path';
 import webpack from 'webpack';
 import autoprefixer from 'autoprefixer';
+import StyleLintPlugin from 'stylelint-webpack-plugin';
 import WriteFilePlugin from 'write-file-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import BrowserSyncPlugin from 'browser-sync-webpack-plugin';
@@ -43,21 +44,7 @@ let plugins = [
   new ExtractTextPlugin(config.devConfig.assets.style.result),
   // Define aliases of known libraries. E.g., alias of "jQuery" could be "$".
   new webpack.ProvidePlugin(config.devConfig.provides),
-  // Process source code.
-  new webpack.LoaderOptionsPlugin({
-    debug: false,
-    // Set to "false" to see a list of every file being bundled.
-    noInfo: true,
-    minimize: true,
-    options: {
-      context: '/',
-      postcss: () => [autoprefixer],
-      sassLoader: {
-        // Incite the Autoprefixer for SCSS.
-        includePaths: [path.resolve(__dirname, path.dirname(config.devConfig.assets.style.source))],
-      },
-    },
-  }),
+  new StyleLintPlugin(),
 ];
 
 switch (process.env.NODE_ENV) {
@@ -112,7 +99,7 @@ export default {
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        loader: 'babel-loader',
+        loader: ['babel-loader', 'eslint-loader'],
       },
       {
         test: /\.eot(\?v=\d+.\d+.\d+)?$/,
@@ -140,7 +127,33 @@ export default {
       },
       {
         test: /(\.css|\.scss|\.sass)$/,
-        loader: ExtractTextPlugin.extract('css-loader?sourceMap!postcss-loader!sass-loader?sourceMap'),
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            {
+              loader: 'css-loader',
+              options: {
+                modules: true,
+                sourceMap: true,
+                importLoaders: true,
+              },
+            },
+            {
+              loader: 'postcss-loader',
+              options: {
+                plugins: [autoprefixer],
+                sourceMap: true,
+              },
+            },
+            {
+              loader: 'sass-loader',
+              options: {
+                includePaths: [path.resolve(__dirname, path.dirname(config.devConfig.assets.style.source))],
+                sourceMap: true,
+              }
+            },
+          ],
+        }),
       },
     ],
   },

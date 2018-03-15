@@ -7,14 +7,10 @@
 !.babelrc
 !.bowerrc
 !.eslintrc
+!.postcssrc
+!.stylelintrc
+!.browserslistrc
 !.router.php
-!.js-config.yml
-!.scss-lint.yml
-!.scss-config.yml
-
-# Custom plugins.
-!.gulp/
-
 # Vendor plugins.
 node_modules/
 
